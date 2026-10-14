@@ -35,6 +35,34 @@ if ("IntersectionObserver" in window) {
   revealNodes.forEach((node) => node.classList.add("in"));
 }
 
+document.querySelectorAll("[data-ca]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const value = button.getAttribute("data-ca");
+    const action = button.querySelector(".ca-action");
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch (error) {
+      const field = document.createElement("textarea");
+      field.value = value;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.left = "-999px";
+      document.body.appendChild(field);
+      field.select();
+      document.execCommand("copy");
+      field.remove();
+    }
+    if (!action) return;
+    const previous = action.textContent;
+    action.textContent = "Copied";
+    button.classList.add("copied");
+    window.setTimeout(() => {
+      action.textContent = previous;
+      button.classList.remove("copied");
+    }, 1400);
+  });
+});
+
 const glow = document.querySelector(".pointer-glow");
 const finePointer = window.matchMedia("(pointer: fine)").matches;
 if (glow && finePointer && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
