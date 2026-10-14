@@ -653,6 +653,19 @@ a.step:hover { transform: translateY(-8px) scale(1.02); }
   border: 0;
 }
 
+.chart-tba {
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+}
+
+.chart-tba-label {
+  font-family: var(--font-display, var(--font-ui));
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  letter-spacing: 0.12em;
+  color: var(--soft);
+}
+
 .chart-link {
   display: inline-flex;
   margin-top: 16px;
